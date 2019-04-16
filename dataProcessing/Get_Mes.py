@@ -15,6 +15,23 @@ class Spider(object):    #爬取的信息有秩序，所以键入开始url的最
         self.cur.close()
         self.db.close()
 
+    def Format_date(self,date):                  #日期格式化，便于排序
+        if (len(date) == 10):
+            return date
+        else:
+            li = date.split('/')
+            re_date = li[0] + '/'
+            if (int(li[1]) < 10):
+                re_date = re_date + '0' + li[1] + '/'
+            else:
+                re_date = re_date + li[1] + '/'
+
+            if (int(li[2]) < 10):
+                re_date = re_date + '0' + li[2]
+            else:
+                re_date = re_date + li[2]
+            return re_date
+
 
     def Spider_Of_Campus(self):     #爬取校招信息
         base_url = 'http://www.fjrclh.com/showMeeting.asp?id='
@@ -41,7 +58,9 @@ class Spider(object):    #爬取的信息有秩序，所以键入开始url的最
                     title2 = title[0]
                     title2 = title2.replace(' ','')
                     title2 = title2.replace('\n','')[4:-5]
-                    time = re.findall(r'时间：\d{4}/\d{1,2}/\d{1,2}',string)[0][3:]
+                    date = re.findall(r'时间：\d{4}/\d{1,2}/\d{1,2}',string)[0][3:]
+                    time = self.Format_date(date)
+
                 sql = "INSERT INTO rec_info(title,is_campus,url,date) VALUES (%s,%s,%s,%s);"
                 try:
                     self.cur.execute(sql,[title2,'1',now_uri,time])
@@ -77,7 +96,8 @@ class Spider(object):    #爬取的信息有秩序，所以键入开始url的最
                         break
                 else:
                     error_times = 0
-                    time = re.findall(r'时间\s*\d{4}/\d{1,2}/\d{1,2}', string)[0][4:]
+                    date = re.findall(r'时间\s*\d{4}/\d{1,2}/\d{1,2}', string)[0][4:]
+                    time = self.Format_date(date)
                     title2 = title[0]
                     title2 = title2.replace(' ', '')
                     title2 = title2.replace('\n', '')
