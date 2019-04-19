@@ -1,4 +1,4 @@
-import pymysql
+﻿import pymysql
 from bs4 import BeautifulSoup
 import requests
 import re
@@ -18,7 +18,7 @@ class Get_Tip(object):
             ('矿'),                                                          #9紫金学院
             ('法学','法律')                                                     #10法学院
                )
-        self.db = pymysql.connect(host="134.175.16.143",user="schoolhelp6!",password="Zgdr@Very6!",database="recruitment")
+        self.db = pymysql.connect(host="*******",user="********",password="**********",database="recruitment")
         self.cur= self.db.cursor()       #取信息所用
         self.cur2 = self.db.cursor()     #存信息所用
 

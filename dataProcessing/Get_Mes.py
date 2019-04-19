@@ -1,4 +1,4 @@
-import pymysql
+﻿import pymysql
 import requests
 import re
 from bs4 import BeautifulSoup
@@ -8,7 +8,7 @@ class Spider(object):    #爬取的信息有秩序，所以键入开始url的最
     def __init__(self,num=0):
         self.url_lastnum = num
         self.headers = {"User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Mobile Safari/537.36", 'Connection': 'close'}
-        self.db = pymysql.connect(host="134.175.16.143",user="schoolhelp6!",password="Zgdr@Very6!",database="recruitment")
+        self.db = pymysql.connect(host="********",user="*********",password="*********",database="recruitment")
         self.cur= self.db.cursor()
 
     def __del__(self):
